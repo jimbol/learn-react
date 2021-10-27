@@ -1,0 +1,22 @@
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.map {
+  flex: 1;
+  pointer-events: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.to-do-li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
