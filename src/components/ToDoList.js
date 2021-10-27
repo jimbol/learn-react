@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Checkbox } from '@mui/material';
 import {
   Link,
 } from 'react-router-dom';
-import { Checkbox } from '@material-ui/core';
 
 const AppTitle = styled.h2`
   padding: 4px;
