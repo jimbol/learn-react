@@ -2,7 +2,7 @@ import { TextField, Select, MenuItem, Container, Button } from '@mui/material';
 import { useCallback, useState } from "react";
 import { v4 as uuid } from 'uuid';
 
-const MOODS = ['neutral', 'happy', 'sad'];
+const MOODS = ['neutral', 'happy', 'sad', 'excited', 'worried'];
 
 const AddEntry = ({ save }) => {
   const [mood, setMood] = useState('neutral');

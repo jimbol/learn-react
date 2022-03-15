@@ -6,6 +6,7 @@ const port = 5000;
 app.use(cors({
   origin: 'http://localhost:3000'
 }));
+app.use(express.json());
 
 let data = [{
   id: 1,
@@ -19,6 +20,12 @@ let data = [{
   text: 'Current events have been bringing me down',
   date: (new Date()).toLocaleDateString("en-US"),
   open: false,
+}, {
+  id: 3,
+  mood: 'excited',
+  text: 'Excited for the weekend',
+  date: (new Date()).toLocaleDateString("en-US"),
+  open: false,
 }];
 
 app.get('/entries', (req, res) => {
@@ -26,10 +33,13 @@ app.get('/entries', (req, res) => {
     data,
   })
 });
+
 app.post('/entry', (req, res) => {
-  const post = req.body.post;
+  console.log(req.body.entry);
+  const entry = req.body.entry;
+
   data = [
-    post,
+    entry,
     ...data,
   ];
   res.send({

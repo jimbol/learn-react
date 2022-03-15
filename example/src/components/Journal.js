@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
@@ -20,17 +20,47 @@ const defaultEntries = [{
   open: false,
 }];
 
-const Journal = () => {
+const useEntries = () => {
   const [entries, setEntries] = useState(defaultEntries);
+  const [initialized, setInitialized] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (initialized) return;
+    setInitialized(true);
+    setIsLoading(true);
+    fetch('http://localhost:5000/entries')
+      .then(response => response.json())
+      .then((result) => {
+        setEntries(result.data);
+        setIsLoading(false);
+      });
+  }, [setEntries, initialized, setInitialized]);
 
   const save = useCallback((newEntry) => {
     setEntries([
       newEntry,
       ...entries,
     ]);
-  }, [entries, setEntries]);
+    setIsLoading(true);
 
-  const updateEntry = useCallback((entryChanges) => {
+    fetch('http://localhost:5000/entry', {
+      method: 'post',
+      body: JSON.stringify({
+        entry: newEntry,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(response => response.json())
+      .then((result) => {
+        setEntries(result.data);
+        setIsLoading(false);
+      });
+  }, [entries, setEntries, setIsLoading]);
+
+  const update = useCallback((entryChanges) => {
     const originalEntryIndex = entries.findIndex(({ id }) => entryChanges.id === id);
 
     const newEntry = {
@@ -41,22 +71,35 @@ const Journal = () => {
     const updatedEntries = [
       ...entries,
     ];
+
     updatedEntries[originalEntryIndex] = newEntry;
-    console.log(updatedEntries);
     setEntries(updatedEntries);
   }, [entries, setEntries]);
+
+  return {
+    update,
+    save,
+    isLoading,
+    data: entries,
+  }
+}
+
+const Journal = () => {
+  const entries = useEntries();
 
   return (
     <Container>
       <Typography variant="h1">Journal</Typography>
-
-      <AddEntry save={save} />
+      <AddEntry save={entries.save} />
       {
-        entries.map(entry => (
+        entries.isLoading ? (<Typography variant="body1">Loading...</Typography>) : null
+      }
+      {
+        entries.data.map(entry => (
           <Entry
-            key={entry.text}
+            key={entry.id}
             entry={entry}
-            updateEntry={updateEntry}
+            updateEntry={entries.updateEntry}
           />
         ))
       }
