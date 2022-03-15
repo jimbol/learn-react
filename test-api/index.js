@@ -7,14 +7,34 @@ app.use(cors({
   origin: 'http://localhost:3000'
 }));
 
-app.get('/', (req, res) => {
+let data = [{
+  id: 1,
+  mood: 'smile',
+  text: 'I felt good about teaching today',
+  date: (new Date()).toLocaleDateString("en-US"),
+  open: true,
+}, {
+  id: 2,
+  mood: 'sad',
+  text: 'Current events have been bringing me down',
+  date: (new Date()).toLocaleDateString("en-US"),
+  open: false,
+}];
+
+app.get('/entries', (req, res) => {
   res.send({
-    data: [{
-      label: 'Add a to-do',
-      done: false,
-      id: 1231231231231,
-    }]
+    data,
   })
+});
+app.post('/entry', (req, res) => {
+  const post = req.body.post;
+  data = [
+    post,
+    ...data,
+  ];
+  res.send({
+    data,
+  });
 })
 
 app.listen(port, () => {
