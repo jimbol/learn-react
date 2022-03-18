@@ -16,6 +16,19 @@ const AddEntry = ({ save }) => {
     setMood(event.target.value || '');
   }, [setMood]);
 
+  const saveEntry = useCallback(() => {
+    save({
+      id: uuid(),
+      text,
+      mood,
+      date: (new Date()).toLocaleDateString('en-US'),
+      open: true,
+    });
+
+    setMood('neutral');
+    setText('');
+  }, [mood, text, save, setMood, setText]);
+
   return (
     <Container>
       <TextField
@@ -37,7 +50,7 @@ const AddEntry = ({ save }) => {
       </Select>
       <br />
       <Button
-        // onClick={saveEntry}
+        onClick={saveEntry}
       >
         Save
       </Button>

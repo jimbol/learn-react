@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import journalLogo from '../journal-logo.png';
 
 const Logo = styled.img`
@@ -18,10 +19,15 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar style={{ justifyContent: 'space-between' }}>
-        <Title>
-          <Logo src={journalLogo} alt="logo" />
-          <Typography variant="h6">Quick Jot</Typography>
-        </Title>
+        <Link to="/">
+          <Title>
+            <Logo src={journalLogo} alt="logo" />
+            <Typography variant="h6" style={{ color: 'white' }}>Quick Jot</Typography>
+          </Title>
+        </Link>
+        <Link to="/about">
+          <Typography variant="h6" style={{ color: 'white' }}>About</Typography>
+        </Link>
       </Toolbar>
     </AppBar>
   );

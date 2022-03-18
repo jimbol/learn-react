@@ -1,16 +1,16 @@
-import journalLogo from './journal-logo.png';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header'
-import Journal from './components/Journal';
+import Router from './components/Router';
 
 function App() {
-  const text = 'Hello world';
-
   return (
-    <div className="App">
-      <Header />
-      <Journal />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Router />
+      </div>
+    </BrowserRouter>
   );
 }
 

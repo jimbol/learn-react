@@ -6,11 +6,12 @@ const port = 5000;
 app.use(cors({
   origin: 'http://localhost:3000'
 }));
+
 app.use(express.json());
 
 let data = [{
   id: 1,
-  mood: 'smile',
+  mood: 'happy',
   text: 'I felt good about teaching today',
   date: (new Date()).toLocaleDateString("en-US"),
   open: true,
