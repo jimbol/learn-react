@@ -1,16 +1,13 @@
 import { Container } from "@mui/material";
 import AddEntry from "../components/AddEntry";
 import Entry from "../components/Entry";
-import useEntries from "../hooks/useEntries";
 
-const Journal = () => {
-  const {
-    loading,
-    toggleOpen,
-    addEntry,
-    entries,
-  } = useEntries();
-
+const JournalWithContainer = ({
+  loading,
+  toggleOpen,
+  addEntry,
+  entries,
+}) => {
   if (loading) {
     return (
       <Container>Loading...</Container>
@@ -38,4 +35,4 @@ const Journal = () => {
   );
 };
 
-export default Journal;
+export default JournalWithContainer;

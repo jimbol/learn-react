@@ -1,18 +1,16 @@
-import logo from './journal-logo.png';
 import './App.css';
-import Journal from './pages/Journal';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './pages/Router';
+import AppHeader from './components/Header';
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <code>Quick Jot</code>
-        </p>
-      </header>
-      <Journal />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <AppHeader />
+        <Router />
+      </div>
+    </BrowserRouter>
   );
 }
 
